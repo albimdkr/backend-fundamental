@@ -46,25 +46,7 @@ const makeCoffee = (type, miligrams) => {
   }
 }
  
-makeCoffee("robusta", 80);
- 
-/* output
-Kopi berhasil dibuat!
-*/
-
-
-const coffeeStock1 = require('./state');
-     
-const makeCoffee1 = (type, miligrams) => {
-  if (coffeeStock1[type] >= miligrams) {
-    console.log("Kopi berhasil dibuat!");
-  } else {
-    console.log("Biji kopi habis!");
-  }
-}
- 
-makeCoffee1("robusta", 80);
- 
+makeCoffee("robusta", 80); 
 /* output
 Kopi berhasil dibuat!
 */
