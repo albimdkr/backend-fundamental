@@ -1,4 +1,3 @@
-
 function coffee (){
     console.log("Menyalakan mesin");
     console.log("Grinder beans");
@@ -16,5 +15,11 @@ const coffeeStock = {
     liberica : 30,
 }
 
+const isCoffeeMachineReady = true;
 
-module.exports = coffeeStock;
+// wrong
+// module.exports = coffeeStock;
+// module.exports = isCoffeeMachineReady;
+
+// correct (if have multiple value)
+module.exports = {coffeeStock, isCoffeeMachineReady};
