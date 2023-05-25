@@ -10,5 +10,11 @@ function coffee (){
     console.log("Coffee siap dinikmati");
 }
 
+const coffeeStock = {
+    arabica : 100,
+    robusta : 200,
+    liberica : 30,
+}
 
-module.exports = coffee();
+
+module.exports = coffeeStock;
