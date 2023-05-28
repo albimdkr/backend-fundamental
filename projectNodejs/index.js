@@ -1,3 +1,6 @@
+import _ from 'lodash';
+
+
 // function coffee (){
 //     console.log("Menyalakan mesin");
 //     console.log("Grinder beans");
@@ -35,4 +38,11 @@ const coffeeStock = {
 }
 const isCoffeeMachineReady = true;
 
-export {coffeeStock, isCoffeeMachineReady};
+
+function test(){
+    const myArray = [1,2,3,4,5];
+    const sum = _.sum(myArray);
+    console.log(sum);
+}
+
+export {coffeeStock, isCoffeeMachineReady, test};
