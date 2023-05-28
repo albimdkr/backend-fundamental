@@ -39,10 +39,10 @@ const coffeeStock = {
 const isCoffeeMachineReady = true;
 
 
-function test(){
+function testLodash(){
     const myArray = [1,2,3,4,5];
     const sum = _.sum(myArray);
     console.log(sum);
 }
 
-export {coffeeStock, isCoffeeMachineReady, test};
+export {coffeeStock, isCoffeeMachineReady, testLodash};

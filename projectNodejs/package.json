@@ -5,12 +5,16 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "test1": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "test" : "jest"
   },
   "author": "albi",
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
   }
 }
