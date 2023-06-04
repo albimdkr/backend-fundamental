@@ -1,5 +1,6 @@
-// const http = require('http');
+// REQUEST BODY
 
+// const http = require('http');
 // const requestListener = (request, response) => {
 //     response.setHeader('Content-Type', 'text/html');
 
@@ -329,36 +330,94 @@
 // });
 
 //
+// const http = require('http');
+// const requireListener = (request, response) => {
+//     response.setHeader('Content-Type', 'text/html');
+//     const statusCode = 200;
+
+//     const {method} = request;
+//     if(method === 'GET'){
+//         response.end(`<h1>Hallo From GET</h1>`);
+//     };
+
+//     if(method === 'POST'){
+//         let body = [];
+
+//         request.on('data', (chunk) => {
+//             body.push(chunk);
+//         });
+
+//         request.on('end', () => {
+//             body = Buffer.concat(body).toString();
+//             const {name} = JSON.parse(body);
+//             response.end(`Hello Iam ${name} FROM POST`);
+//         });
+//     };
+// };
+
+// const server = http.createServer(requireListener);
+// const port = 5000;
+// const host = 'localhost';
+
+// server.listen(port, host, () => {
+//     console.log(`Your Server http://${host}:${port}`);
+// });
+
+//=======================================
+
+//ROUTING REQUEST
+
 const http = require('http');
 const requireListener = (request, response) => {
     response.setHeader('Content-Type', 'text/html');
-    const statusCode = 200;
+    response.statusCode = 200;
+    
+    const { method, url } = request;
 
-    const {method} = request;
-    if(method === 'GET'){
-        response.end(`<h1>Hallo From GET</h1>`);
-    };
+    if(url === '/'){
+        if( method === 'GET'){
+            response.end(`<h1 style='text-align : center'>Home</h1>`);
+        } else {
+            response.end(`<h1 style='text-align : center'> 404 : Page Not Found With ${method}</h1>`);
+        }
 
-    if(method === 'POST'){
-        let body = [];
+    } else if (url === '/about'){
+        if( method === 'GET'){
+            response.end(`<h1 style='text-align : center'>About From GET</h1>`);
+        } else if ( method === 'POST'){
+            let body = [];
 
-        request.on('data', (chunk) => {
-            body.push(chunk);
-        });
+            request.on('data', (chunk) => {
+                body.push(chunk);
+            });
 
-        request.on('end', () => {
-            body = Buffer.concat(body).toString();
-            const {name} = JSON.parse(body);
-            response.end(`Hello Iam ${name} FROM POST`);
-        });
-    };
+            request.on('end', () => {
+                body = Buffer.concat(body).toString();
+                const {name} = JSON.parse(body);
+                response.end(`<h1 style='text-align : center'>About ${name} From POST</h1>`);
+            });
+        } else {
+            response.end(`<h1 style='text-align : center'> 404 : Page Not Found With ${method}</h1>`);
+        }
+        
+    } else if (url === '/setting'){
+        response.end(`<h1 style='text-align : center'>Setting</h1>`);
+    } else {
+        response.end(`<h1 style='text-align : center'> 404 : Page Not Found!</h1>`);
+    }
 };
+
 
 const server = http.createServer(requireListener);
 const port = 5000;
 const host = 'localhost';
 
-server.listen(port, host, () => {
-    console.log(`Your Server http://${host}:${port}`);
+server.listen (port, host, () => {
+    console.log(`Your server running at http://${host}:${port}`);
 });
+
+
+
+
+
 
