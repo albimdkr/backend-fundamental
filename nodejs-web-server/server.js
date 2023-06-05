@@ -370,19 +370,22 @@
 const http = require('http');
 const requireListener = (request, response) => {
     response.setHeader('Content-Type', 'text/html');
-    response.statusCode = 200;
+    // response.statusCode = 200;
     
     const { method, url } = request;
 
     if(url === '/'){
         if( method === 'GET'){
+            response.statusCode = 200;
             response.end(`<h1 style='text-align : center'>Home</h1>`);
         } else {
+            response.statusCode = 404;
             response.end(`<h1 style='text-align : center'> 404 : Page Not Found With ${method}</h1>`);
         }
 
     } else if (url === '/about'){
         if( method === 'GET'){
+            response.statusCode = 200;
             response.end(`<h1 style='text-align : center'>About From GET</h1>`);
         } else if ( method === 'POST'){
             let body = [];
@@ -394,15 +397,24 @@ const requireListener = (request, response) => {
             request.on('end', () => {
                 body = Buffer.concat(body).toString();
                 const {name} = JSON.parse(body);
+                response.statusCode = 200;
                 response.end(`<h1 style='text-align : center'>About ${name} From POST</h1>`);
             });
         } else {
+            response.statusCode = 404;
             response.end(`<h1 style='text-align : center'> 404 : Page Not Found With ${method}</h1>`);
         }
         
     } else if (url === '/setting'){
-        response.end(`<h1 style='text-align : center'>Setting</h1>`);
+        if( method === 'GET'){
+            response.statusCode = 200;
+            response.end(`<h1 style='text-align : center'>Setting</h1>`);
+        } else {
+            response.statusCode = 404;
+            response.end(`<h1 style='text-align : center'>404 : Page Not Found!/h1>`);
+        };
     } else {
+        response.statusCode = 404;
         response.end(`<h1 style='text-align : center'> 404 : Page Not Found!</h1>`);
     }
 };
