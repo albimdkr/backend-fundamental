@@ -369,7 +369,8 @@
 
 const http = require('http');
 const requireListener = (request, response) => {
-    response.setHeader('Content-Type', 'text/html');
+    response.setHeader('Content-Type', 'application/json');
+    response.setHeader('X-Powered-By', 'Nodejs');
     // response.statusCode = 200;
     
     const { method, url } = request;
