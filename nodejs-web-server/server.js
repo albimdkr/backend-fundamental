@@ -378,16 +378,10 @@ const requireListener = (request, response) => {
     if(url === '/'){
         if( method === 'GET'){
             response.statusCode = 200;
-            response.end(`<h1 style='text-align : center'>Home</h1>`);
-        } else {
-            response.statusCode = 404;
-            response.end(`<h1 style='text-align : center'> 404 : Page Not Found With ${method}</h1>`);
-        }
+            response.end( JSON.stringify({
+                message : 'Home'
+            }));
 
-    } else if (url === '/about'){
-        if( method === 'GET'){
-            response.statusCode = 200;
-            response.end(`<h1 style='text-align : center'>About From GET</h1>`);
         } else if ( method === 'POST'){
             let body = [];
 
@@ -399,24 +393,51 @@ const requireListener = (request, response) => {
                 body = Buffer.concat(body).toString();
                 const {name} = JSON.parse(body);
                 response.statusCode = 200;
-                response.end(`<h1 style='text-align : center'>About ${name} From POST</h1>`);
+                response.end(JSON.stringify({
+                    message : `this is page home with ${method}`
+                }));
             });
+
         } else {
-            response.statusCode = 404;
-            response.end(`<h1 style='text-align : center'> 404 : Page Not Found With ${method}</h1>`);
+            response.statusCode = 400;
+            response.end( JSON.stringify({
+                message : ` 400 : Page not found with ${method}`
+            }));
         }
-        
-    } else if (url === '/setting'){
+
+    } else if (url === '/about'){
         if( method === 'GET'){
             response.statusCode = 200;
-            response.end(`<h1 style='text-align : center'>Setting</h1>`);
+            response.end( JSON.stringify({
+                message : 'about',
+            }));
+        } else if ( method === 'POST'){
+            let body = [];
+
+            request.on('data', (chunk) => {
+                body.push(chunk);
+            });
+
+            request.on('end', () => {
+                body = Buffer.concat(body).toString();
+                const {name} = JSON.parse(body);
+                response.statusCode = 200;
+                response.end(JSON.stringify({
+                    message : 'about GET',
+                }));
+            });
         } else {
-            response.statusCode = 404;
-            response.end(`<h1 style='text-align : center'>404 : Page Not Found!/h1>`);
-        };
+            response.statusCode = 400;
+            response.end(({
+                message : `400 : Page not found with ${method}`
+            }));
+        };  
+        
     } else {
         response.statusCode = 404;
-        response.end(`<h1 style='text-align : center'> 404 : Page Not Found!</h1>`);
+        response.end(JSON.stringify({
+            message : ' 404 : not found!'
+        }));
     }
 };
 
