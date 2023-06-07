@@ -28,6 +28,12 @@ const routes = [
         path : '/hello/{name?}',
         handler : (request, h) => {
             const {name = "not found!"} = request.params;
+            const { lang } = request.query;
+
+            if( lang === 'id'){
+                return `Hai, ${name}!`;
+            }
+
             return `Hello, ${name}!`;
         },
     },
