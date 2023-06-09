@@ -91,9 +91,33 @@ const editNoteById = (request, h) => {
     response.code(200);
     return response;
   }
+
   const response = h.response({
     status: 'Failed!',
     message: 'Catatan Gagal Diperbarui, id tidak ditemukan!',
+  });
+  response.code(404);
+  return response;
+};
+
+const deleteNoteByIdHandler = (request, h) => {
+  // eslint-disable-next-line no-undef
+  const { id } = request.params;
+
+  const index = notes.findIndex((note) => note.id === id);
+  if (index !== -1) {
+    notes.splice(index, 1);
+    const response = h.response({
+      status: 'success',
+      message: 'Catatan Berhasil Dihapus!',
+    });
+    response.code(200);
+    return response;
+  }
+
+  const response = h.response({
+    status: 'Failed!',
+    message: 'Catatan Gagal Dihapus, id tidak ditemukan!',
   });
   response.code(404);
   return response;
@@ -103,4 +127,5 @@ module.exports = {
   getAllNotesHandler,
   getNoteByIdHandler,
   editNoteById,
+  deleteNoteByIdHandler,
 };
