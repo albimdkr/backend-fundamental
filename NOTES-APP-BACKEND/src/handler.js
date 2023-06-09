@@ -39,4 +39,33 @@ const addNoteHandler = (request, h) => {
   return response;
 };
 
-module.exports = { addNoteHandler };
+const getAllNotesHandler = () => ({
+  status: 'success',
+  data: {
+    notes,
+  },
+});
+
+const getNoteByIdHandler = (request, h) => {
+  const { id } = request.params;
+
+  // eslint-disable-next-line no-undef
+  const note = notes.filter((n) => n.id === id)[0];
+
+  if (note !== undefined) {
+    return {
+      status: 'success',
+      data: {
+        note,
+      },
+    };
+  }
+
+  const response = h.response({
+    status: 'Failed!',
+    message: 'Catatan Tidak Ditemukan',
+  });
+  response.code(404);
+  return response;
+};
+module.exports = { addNoteHandler, getAllNotesHandler, getNoteByIdHandler };
