@@ -1,4 +1,9 @@
-const { addNoteHandler, getAllNotesHandler, getNoteByIdHandler } = require('./handler');
+const {
+  addNoteHandler,
+  getAllNotesHandler,
+  getNoteByIdHandler,
+  editNoteById,
+} = require('./handler');
 
 const routes = [
   {
@@ -16,6 +21,11 @@ const routes = [
     path: '/notes/{id}',
     // eslint-disable-next-line no-undef
     handler: getNoteByIdHandler,
+  },
+  {
+    method: 'PUT',
+    path: '/notes/{id}',
+    handler: editNoteById,
   },
 ];
 
